@@ -9,6 +9,7 @@ int main(int argc, char* argv[]) {
     while (g->getState()) {
         g->Renderer();
         g->Event();
+        g->Update();
     }
     g->Clear();
 

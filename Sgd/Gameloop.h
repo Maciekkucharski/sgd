@@ -2,6 +2,7 @@
 #include<SDL.h>
 #include<iostream>
 #include<SDL_image.h>
+#include "TextureMenager.h"
 
 class GameLoop {
 private:
@@ -11,11 +12,14 @@ private:
     SDL_Renderer* renderer;
     SDL_Event event;
     bool state;
+    SDL_Texture* bird;
+    SDL_Rect srcBird, destBird;
 public:
     GameLoop();
 
     void Initialize();
 
+    void Update();
 
     void Event();
 
