@@ -10,7 +10,6 @@
 GameLoop::GameLoop() {
     window = NULL;
     renderer = NULL;
-
     state = false;
 
 }
@@ -36,6 +35,12 @@ void GameLoop::Event(){
     SDL_PollEvent(&event);
     if(event.type == SDL_QUIT){
         state = false;
+    }
+    if(event.type == SDL_MOUSEBUTTONDOWN){
+        std::cout << "click\n";
+    }
+    if(event.type == SDL_KEYDOWN){
+        std::cout << "click keyboard\n";
     }
 }
 

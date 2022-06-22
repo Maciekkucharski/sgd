@@ -1,8 +1,10 @@
 #include <SDL.h>
 #include <iostream>
 #include "GameLoop.h"
+#include<SDL_image.h>
 
-GameLoop *g = new GameLoop();  //pointer to gameloop class to acces function
+
+GameLoop *g = new GameLoop();  //pointer to gameloop class to access function
 
 int main(int argc, char *argv[]) {
     g->Initialize();
