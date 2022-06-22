@@ -1,23 +1,18 @@
-//
-// Created by Maciek on 21.06.2022.
-//
-
-#ifndef SGD_GAMELOOP_H
-#define SGD_GAMELOOP_H
-
+#pragma once
 #include<SDL.h>
 #include<iostream>
+#include<SDL_image.h>
 
 class GameLoop {
 private:
     const int SCREEN_WIDTH = 1920;
     const int SCREEN_HEIGHT = 1080;
-    SDL_Window *window;
-    SDL_Renderer *renderer;
+    SDL_Window* window;
+    SDL_Renderer* renderer;
     SDL_Event event;
     bool state;
 public:
-     GameLoop();
+    GameLoop();
 
     void Initialize();
 
@@ -30,6 +25,3 @@ public:
 
     bool getState();
 };
-
-
-#endif //SGD_GAMELOOP_H
