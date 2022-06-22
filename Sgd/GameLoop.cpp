@@ -21,6 +21,7 @@ void GameLoop::Initialize() {
             std::cout << "Renderer created!\n";
             state = true;
             bird = TextureMenager::Texture("images/bird.png", renderer);
+            background = TextureMenager::Texture("images/background.webp", renderer);
         }
         else {
             std::cout << "Renderer couldn't be created! SDL_Error\n" << SDL_GetError() << std::endl;
@@ -30,13 +31,13 @@ void GameLoop::Initialize() {
 
 
 void GameLoop::Update(){
-    srcBird.w = 240;
-    srcBird.h = 170;
+    srcBird.w = 120;
+    srcBird.h = 85;
     srcBird.x = 0;
     srcBird.y = 0;
 
-    destBird.w = 240;
-    destBird.h = 170;
+    destBird.w = 120;
+    destBird.h = 85;
     destBird.x = 10;
     destBird.y = 10;
 }
@@ -56,6 +57,7 @@ void GameLoop::Event() {
 
 void GameLoop::Renderer() {
     SDL_RenderClear(renderer);
+    SDL_RenderCopy(renderer, background, NULL, NULL);
     SDL_RenderCopy(renderer, bird, &srcBird, &destBird);
     SDL_RenderPresent(renderer);
 }

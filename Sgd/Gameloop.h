@@ -13,6 +13,7 @@ private:
     SDL_Event event;
     bool state;
     SDL_Texture* bird;
+    SDL_Texture* background;
     SDL_Rect srcBird, destBird;
 public:
     GameLoop();
