@@ -31,27 +31,35 @@ void GameLoop::Initialize() {
 }
 
 
-void GameLoop::Update(){
-
-}
+//void GameLoop::Update(){
+//    b.Update();
+//}
 
 void GameLoop::Event() {
+    b.getJumpTime();
     SDL_PollEvent(&event);
     if (event.type == SDL_QUIT) {
         state = false;
     }
-    if (event.type == SDL_MOUSEBUTTONDOWN) {
-        std::cout << "click\n";
-    }
     if (event.type == SDL_KEYDOWN) {
-        std::cout << "click keyboard\n";
+        if (event.key.keysym.sym == SDLK_UP) {
+        if (!b.getJumping()) {
+            b.Jump();
+        }
+            else {
+                b.Gravity();
+            }  
+        }
+    }
+    else {
+        b.Gravity();
     }
 }
 
 void GameLoop::Renderer() {
     SDL_RenderClear(renderer);
-    bg.Render(renderer, bg.getTexture());
-    b.Render(renderer, b.getTexture(), b.getSrc(), b.getDest());
+    bg.Render(renderer);
+    b.Render(renderer);
     SDL_RenderPresent(renderer);
 }
 

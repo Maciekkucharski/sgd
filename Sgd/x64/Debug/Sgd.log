@@ -1,4 +1,4 @@
-﻿  Background.cpp
-  GameLoop.cpp
-  Generowanie kodu...
+﻿  Bird.cpp
+C:\Users\Maciek\visual_repos\Sgd\Sgd\Bird.cpp(17,15): warning C4244: "argument": konwersja z "double" do "int", możliwa utrata danych
+C:\Users\Maciek\visual_repos\Sgd\Sgd\Bird.cpp(27,15): warning C4244: "argument": konwersja z "double" do "int", możliwa utrata danych
   Sgd.vcxproj -> C:\Users\Maciek\visual_repos\Sgd\x64\Debug\Sgd.exe
