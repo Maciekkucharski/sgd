@@ -11,9 +11,9 @@ int main(int argc, char* argv[]) {
     double last = 0;
     g->Initialize();
     while (g->getState()) {
-        g->Renderer();
-        g->Event();
         g->Update();
+        g->Event();
+        g->Renderer();
         g->CollisionDetection();
         first = SDL_GetTicks();
         if (first - last < 6.9) {
@@ -23,7 +23,7 @@ int main(int argc, char* argv[]) {
         last = first;
     }
     g->Renderer();
-    Sleep(3000);
+    Sleep(300);
     g->Clear();
 
     return 0;

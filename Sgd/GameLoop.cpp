@@ -10,6 +10,11 @@ GameLoop::GameLoop() {
     brL.setDest(0, 0, 1080, 2);
     brR.setDest(1918, 0, 1080, 2);
     brB.setDest(0, 1078, 2, 1920);
+
+    Pipe_Above.setSrc(0, 0, 320, 52);
+    Pipe_Above.setDest(1600, -500, 800, 102);
+    Pipe_Below.setSrc(0, 0, 320, 52);
+    Pipe_Below.setDest(1600, 650, 800, 102);
 }
 
 void GameLoop::Initialize() {
@@ -31,6 +36,9 @@ void GameLoop::Initialize() {
             brL.CreateTexture("images/border.jpg", renderer);
             brR.CreateTexture("images/border.jpg", renderer);
 
+            Pipe_Above.CreateTexture("images/Pipe_Above.png", renderer);
+            Pipe_Below.CreateTexture("images/Pipe_Below.png", renderer);
+
         }
         else {
             std::cout << "Renderer couldn't be created! SDL_Error\n" << SDL_GetError() << std::endl;
@@ -41,6 +49,8 @@ void GameLoop::Initialize() {
 
 void GameLoop::Update(){
     b.Update();
+    Pipe_Above.Update(renderer);
+    Pipe_Below.Update(renderer);
 }
 
 void GameLoop::Event() {
@@ -71,11 +81,11 @@ void GameLoop::Event() {
     }
 }
 
-//
+
 void GameLoop::CollisionDetection() {
-    if (CollisionManager::CheckCollision(&b.getDest(), &brB.getDest()) || CollisionManager::CheckCollision(&b.getDest(), &brT.getDest()) || CollisionManager::CheckCollision(&b.getDest(), &brL.getDest()) || CollisionManager::CheckCollision(&b.getDest(), &brR.getDest())) {
+    if (CollisionManager::CheckCollision(&b.getDest(), &brB.getDest()) || CollisionManager::CheckCollision(&b.getDest(), &brT.getDest()) || CollisionManager::CheckCollision(&b.getDest(), &brL.getDest()) || CollisionManager::CheckCollision(&b.getDest(), &Pipe_Above.getDest()) || CollisionManager::CheckCollision(&b.getDest(), &Pipe_Below.getDest())) {
         if (b.getDt() > 500) {
-            bg.CreateTexture("images/GO.jpg", renderer);
+            bgEnd.CreateTexture("images/GO.jpg", renderer);
             state = false;
         }
     }
@@ -92,6 +102,10 @@ void GameLoop::Renderer() {
     brT.Render(renderer);
     brL.Render(renderer);
     brR.Render(renderer);
+    Pipe_Above.PipeRender(renderer);
+    Pipe_Below.PipeRender(renderer);
+    bgEnd.Render(renderer);
+
     b.Render(renderer);
     SDL_RenderPresent(renderer);
 }

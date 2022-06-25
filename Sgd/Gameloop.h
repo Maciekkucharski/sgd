@@ -19,10 +19,14 @@ private:
     SDL_Texture* background;
     Bird b;
     Background bg;
+    Background bgEnd;
     Border brT;
     Border brB;
     Border brL;
     Border brR;
+    Background Pipe_Above;
+    Background Pipe_Below;
+    double horizontalVelocity = 0;
 public:
     GameLoop();
 
