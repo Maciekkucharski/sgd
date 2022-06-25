@@ -22,7 +22,7 @@ public:
 
     void Initialize();
 
-    //void Update();
+    void Update();
 
     void Event();
 

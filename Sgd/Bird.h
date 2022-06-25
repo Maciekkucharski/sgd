@@ -7,19 +7,19 @@ public:
 	void Jump();
 	bool getJumping();
 	void Gravity();
+	double getPdt();
+	void setPdt();
+	double getDt();
+	void setDt();
+	double getFdt();
+	void setFdt();
+	void Update();
+
+
 private:
-	double gravity = 0.1;
-	double jumpHeight = -6;
+	double pdt, dt, fdt = 0;
+	double gravity = 9;
 	double jumpTimer;
 	double last_jump = 0;
-	double y = 256;
-	double accelerator1 = 0;
-	double accelerator2 = 0;
-	int animationtimer;
 	bool jumping = false;
-	SDL_Texture* Tex1;
-	SDL_Texture* Tex2;
-
-
-
 };

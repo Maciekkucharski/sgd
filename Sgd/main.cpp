@@ -12,6 +12,7 @@ int main(int argc, char* argv[]) {
     while (g->getState()) {
         g->Renderer();
         g->Event();
+        g->Update();
         first = SDL_GetTicks();
         if (first - last < 6.9) {
             SDL_Delay(6.9 - (first - last));

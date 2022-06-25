@@ -6,7 +6,6 @@ GameLoop::GameLoop() {
     renderer = NULL;
     state = false;
     b.setSrc(0, 0, 85, 120);
-    b.setDest(100, 207, 85, 120);
 }
 
 void GameLoop::Initialize() {
@@ -31,11 +30,12 @@ void GameLoop::Initialize() {
 }
 
 
-//void GameLoop::Update(){
-//    b.Update();
-//}
+void GameLoop::Update(){
+    b.Update();
+}
 
 void GameLoop::Event() {
+
     b.getJumpTime();
     SDL_PollEvent(&event);
     if (event.type == SDL_QUIT) {
@@ -43,9 +43,9 @@ void GameLoop::Event() {
     }
     if (event.type == SDL_KEYDOWN) {
         if (event.key.keysym.sym == SDLK_UP) {
-        if (!b.getJumping()) {
-            b.Jump();
-        }
+            if (!b.getJumping()) {     
+                b.Jump(); 
+            }
             else {
                 b.Gravity();
             }  
