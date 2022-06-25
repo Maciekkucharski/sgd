@@ -144,6 +144,8 @@
   <ItemGroup>
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="Bird.cpp" />
+    <ClCompile Include="Border.cpp" />
+    <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="GameLoop.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Object.cpp" />
@@ -152,6 +154,8 @@
   <ItemGroup>
     <ClInclude Include="Background.h" />
     <ClInclude Include="Bird.h" />
+    <ClInclude Include="Border.h" />
+    <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Gameloop.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="TextureMenager.h" />

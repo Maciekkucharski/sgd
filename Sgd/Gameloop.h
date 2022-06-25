@@ -5,6 +5,8 @@
 #include "Object.h"
 #include "Bird.h"
 #include "Background.h"
+#include "Border.h"
+#include"CollisionManager.h"
 
 class GameLoop {
 private:
@@ -17,6 +19,10 @@ private:
     SDL_Texture* background;
     Bird b;
     Background bg;
+    Border brT;
+    Border brB;
+    Border brL;
+    Border brR;
 public:
     GameLoop();
 
@@ -31,4 +37,6 @@ public:
     void Clear();
 
     bool getState();
+
+    void CollisionDetection();
 };

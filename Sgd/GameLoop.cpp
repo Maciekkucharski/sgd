@@ -6,6 +6,10 @@ GameLoop::GameLoop() {
     renderer = NULL;
     state = false;
     b.setSrc(0, 0, 85, 120);
+    brT.setDest(0, 0, 2, 1920);
+    brL.setDest(0, 0, 1080, 2);
+    brR.setDest(1918, 0, 1080, 2);
+    brB.setDest(0, 1078, 2, 1920);
 }
 
 void GameLoop::Initialize() {
@@ -22,6 +26,11 @@ void GameLoop::Initialize() {
             state = true;
             b.CreateTexture("images/bird.png", renderer);
             bg.CreateTexture("images/background.webp", renderer);
+            brB.CreateTexture("images/border.jpg", renderer);
+            brT.CreateTexture("images/border.jpg", renderer);
+            brL.CreateTexture("images/border.jpg", renderer);
+            brR.CreateTexture("images/border.jpg", renderer);
+
         }
         else {
             std::cout << "Renderer couldn't be created! SDL_Error\n" << SDL_GetError() << std::endl;
@@ -42,7 +51,7 @@ void GameLoop::Event() {
         state = false;
     }
     if (event.type == SDL_KEYDOWN) {
-        if (event.key.keysym.sym == SDLK_UP) {
+        if (event.key.keysym.sym == SDLK_w) {
             if (!b.getJumping()) {     
                 b.Jump(); 
             }
@@ -50,18 +59,43 @@ void GameLoop::Event() {
                 b.Gravity();
             }  
         }
+        else if (event.key.keysym.sym == SDLK_d) {
+            b.accRight();
+        }
+        else if (event.key.keysym.sym == SDLK_a) {
+            b.accLeft();
+        }
     }
     else {
         b.Gravity();
     }
 }
 
+//
+void GameLoop::CollisionDetection() {
+    if (CollisionManager::CheckCollision(&b.getDest(), &brB.getDest()) || CollisionManager::CheckCollision(&b.getDest(), &brT.getDest()) || CollisionManager::CheckCollision(&b.getDest(), &brL.getDest()) || CollisionManager::CheckCollision(&b.getDest(), &brR.getDest())) {
+        if (b.getDt() > 500) {
+            bg.CreateTexture("images/GO.jpg", renderer);
+            state = false;
+        }
+    }
+    
+}
+
+
+
+
 void GameLoop::Renderer() {
     SDL_RenderClear(renderer);
     bg.Render(renderer);
+    brB.Render(renderer);
+    brT.Render(renderer);
+    brL.Render(renderer);
+    brR.Render(renderer);
     b.Render(renderer);
     SDL_RenderPresent(renderer);
 }
+
 
 void GameLoop::Clear() {
     SDL_DestroyRenderer(renderer);

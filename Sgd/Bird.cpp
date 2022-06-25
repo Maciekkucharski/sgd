@@ -14,8 +14,7 @@ void Bird::Gravity() {
 		double tmp_dest = getDest().y;
 		double velocity = gravity * tmp_fdt + 20;
 		double y = getDest().y - 22 * tmp_fdt + 4.5 * tmp_fdt * tmp_fdt * gravity;
-		std::cout << "old : ->" << tmp_dest << "		new -->" << y << std::endl;
-		setDest(25, y, 42, 60);
+		setDest(40, y, 42, 60);
 		if (tmp_dest < y) {
 			setFdt();
 			setPdt();
@@ -26,8 +25,12 @@ void Bird::Gravity() {
 	{
 		double velocity = gravity * tmp_fdt;
 		int y = getDest().y + gravity * tmp_fdt * tmp_fdt + velocity;
-		setDest(25, y, 42, 60);
+		setDest(40, y, 42, 60);
 	}
+}
+
+void Bird::moveHorizontally() {
+
 }
 
 void Bird::Jump() {
@@ -41,6 +44,15 @@ void Bird::Jump() {
 		Gravity();
 	}
 }
+
+void Bird::accLeft() {
+
+}
+
+void Bird::accRight() {
+
+}
+
 
 void Bird::Update() {
 	setDt();
