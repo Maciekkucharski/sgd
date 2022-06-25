@@ -1,8 +1,10 @@
-#pragma once
+ #pragma once
 #include<SDL.h>
-#include<iostream>
 #include<SDL_image.h>
-#include "TextureMenager.h"
+#include<iostream>
+#include "Object.h"
+#include "Bird.h"
+#include "Background.h"
 
 class GameLoop {
 private:
@@ -12,9 +14,9 @@ private:
     SDL_Renderer* renderer;
     SDL_Event event;
     bool state;
-    SDL_Texture* bird;
     SDL_Texture* background;
-    SDL_Rect srcBird, destBird;
+    Bird b;
+    Background bg;
 public:
     GameLoop();
 

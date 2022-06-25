@@ -2,7 +2,7 @@
 #include<SDL.h>
 #include<SDL_image.h>
 #include<iostream>
-#include "TextureMenager.h"
+#include "TextureMenager.h" 
 
 
 class Object {
@@ -12,8 +12,12 @@ private:
 public:
 	Object();
 	SDL_Texture* getTexture();
-	void CreateTexture(const char* address, SDL_Renderer* ren, SDL_Texture* Tex);
-	void virtual Render() = 0;
+	SDL_Rect& getSrc();
+	void setSrc(int x, int y, int h, int w);
+	SDL_Rect& getDest();
+	void setDest(int x, int y, int h, int w);
+	void CreateTexture(const char* address, SDL_Renderer* ren);
+	void virtual Render(SDL_Renderer* ren, SDL_Texture* Tex, SDL_Rect src, SDL_Rect dest) = 0;
 	
 
 };
