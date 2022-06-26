@@ -46,11 +46,11 @@ void Bird::Jump() {
 }
 
 void Bird::accLeft() {
-
+	xVelocity--;
 }
 
 void Bird::accRight() {
-
+	xVelocity++;
 }
 
 
@@ -59,10 +59,7 @@ void Bird::Update() {
 }
 
 
-void Bird::getJumpTime() {
-	jumpTimer = SDL_GetTicks();
 
-}
 
 bool Bird::getJumping() {
 	return jumping;

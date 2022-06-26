@@ -55,7 +55,6 @@ void GameLoop::Update(){
 
 void GameLoop::Event() {
 
-    b.getJumpTime();
     SDL_PollEvent(&event);
     if (event.type == SDL_QUIT) {
         state = false;
