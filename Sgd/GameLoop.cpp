@@ -62,41 +62,38 @@ void GameLoop::Event() {
         if (event.key.keysym.sym == SDLK_w) {
             if (!b.getJumping()) {     
                 b.Jump(); 
+                b.Move();
             }
             else {
-                b.Gravity();
+                b.Move();
             }  
         }
         else if (event.key.keysym.sym == SDLK_d) {
-            b.accRight();
-            std::cout << "dupa";
-            //b.accHorizontal(5);
+            b.changeAccForwards(true);
+            b.Move();
         }
         else if (event.key.keysym.sym == SDLK_a) {
-            b.accLeft();
-            //b.accHorizontal(-5);
+            //
         }
         else {
-            b.Gravity();
+            b.Move();
         }
     }
     else if ((event.type == SDL_KEYUP)) {
         if (event.key.keysym.sym == SDLK_d) {
-            b.setAcceleratingRight(false);
-            b.setFdt_x();
-            b.setPdt_x();
-            std::cout << "lllllllllllllllllllll";
-
+            b.changeAccForwards(false);
+            b.Move();
+        }
+        else if (event.key.keysym.sym == SDLK_a) {
 
         }
         else {
-            b.Gravity();
+            b.Move();
         }
     }
     else {
-        b.Gravity();
+        b.Move();
     }
-
 }
 
 
