@@ -54,7 +54,6 @@ void GameLoop::Update(){
 }
 
 void GameLoop::Event() {
-
     SDL_PollEvent(&event);
     if (event.type == SDL_QUIT) {
         state = false;
@@ -70,14 +69,34 @@ void GameLoop::Event() {
         }
         else if (event.key.keysym.sym == SDLK_d) {
             b.accRight();
+            std::cout << "dupa";
+            //b.accHorizontal(5);
         }
         else if (event.key.keysym.sym == SDLK_a) {
             b.accLeft();
+            //b.accHorizontal(-5);
+        }
+        else {
+            b.Gravity();
+        }
+    }
+    else if ((event.type == SDL_KEYUP)) {
+        if (event.key.keysym.sym == SDLK_d) {
+            b.setAcceleratingRight(false);
+            b.setFdt_x();
+            b.setPdt_x();
+            std::cout << "lllllllllllllllllllll";
+
+
+        }
+        else {
+            b.Gravity();
         }
     }
     else {
         b.Gravity();
     }
+
 }
 
 
