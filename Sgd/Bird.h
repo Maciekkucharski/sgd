@@ -4,7 +4,7 @@ class Bird :public Object {
 public:
 	void Render(SDL_Renderer* ren);
 	void Jump();
-	void changeAccForwards(bool accelerate);
+	void changeAccForwards(int accelerate);
 	bool getJumping();
 	void Move();
 	double getPdt();
@@ -22,14 +22,16 @@ public:
 	double getxAcc();
 	void setAcceleratingRight(bool value);
 	bool getAcceleratingRight();
+	void setDrag(bool value);
+	bool getDrag();
 	void setFdt_x();
 	void Update();
 
 private:
 	double pdt, dt, fdt = 0;
-	double gravity = 9;
+	double gravity = 40;
 	double xAcc = 0;
-	double jumpPower = 22;
+	double jumpSpeed = 20;
 	double xVelocity = 0;
 	double xEventStartVelocity = 0;
 	double jumpTimer;
@@ -37,5 +39,5 @@ private:
 	bool acceleratingRight = false;
 	bool acceleratingLeft = false;
 	double pdt_x, fdt_x = 0;
-	double drag = 5;
+	bool drag = false;
 };

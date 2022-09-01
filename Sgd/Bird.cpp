@@ -19,18 +19,14 @@ void Bird::Jump() {
 void Bird::Move() {
 	
 	double x;
+	double y;
+	std::cout << "\nEventStartVelocity->" << xEventStartVelocity <<  "	vel->" << xVelocity<< "		fdtx->" << getFdt_x() << "		pdtx->" << getPdt_x() << "	xacc->" << xAcc << "	drag->" << drag;
 	setFdt();
-	
-	if (getDest().x > 40) {
-		x = getDest().x;
-	}
-	else {
-		x = 40;
-	}
 	if (getJumping()){
 		double tmp_dest = getDest().y;
-		double y = getDest().y - jumpPower * getFdt() + 4.5 * getFdt() * getFdt() * gravity;
-		setDest(x, y, 42, 60);
+		y = getDest().y - jumpSpeed * getFdt() + (getFdt() * getFdt() * gravity) ;
+		
+		setDest(getDest().x, y, 42, 60);
 		if (tmp_dest < y) {
 			setPdt();
 			jumping = false;
@@ -38,26 +34,25 @@ void Bird::Move() {
 	}
 	else
 	{
-		double velocity = gravity * getFdt();
-		int y = getDest().y + gravity * getFdt() * getFdt() + velocity;
-		setDest(x, y, 42, 60);
+		y = getDest().y + gravity * (getFdt() * getFdt());
+		
 	}
+	setDest(getDest().x, 40, 42, 60);//change 40 to y
 
 	setFdt_x();
-	if (getAcceleratingRight()) {
-		x = getDest().x + xEventStartVelocity * getFdt_x() + xAcc * getFdt_x() * getFdt_x();
-		xVelocity = (x - getDest().x) / getFdt_x() + xAcc * getFdt_x();
-
-		setDest(x, getDest().y, 42, 60);
-	}
-	else {
-		x = getDest().x + xEventStartVelocity * getFdt_x() - drag * getFdt_x() * getFdt_x();
-		xVelocity = (x - getDest().x) / getFdt_x() - drag * getFdt_x();
-	}
+	//if (getAcceleratingRight()) {
+	x = getDest().x + xEventStartVelocity * getFdt_x() + xAcc * getFdt_x() * getFdt_x();
+	xVelocity = xEventStartVelocity + xAcc * getFdt_x();
+//	}
 	
 	
-	if (xVelocity == 0 && !getAcceleratingRight() == 0) {
-		//xAcc = 0;
+	if (abs(xVelocity)< 0.1 && getDrag()) {
+		setxAcc(0);
+		setxVelocity(0);
+		xEventStartVelocity = 0;
+		setDrag(false);
+		setAcceleratingRight(false);
+		//setPdt_x();
 	}
 	
 	setDest(x, getDest().y, 42, 60);
@@ -68,21 +63,17 @@ void Bird::Move() {
 	
 
 
-void Bird::changeAccForwards(bool accelerate) {
-	if (xAcc == 0 && accelerate) {
-		setAcceleratingRight(true);
+void Bird::changeAccForwards(int accelerate) {
+	setAcceleratingRight(accelerate > 0);
+	if ((xAcc == 0 && acceleratingRight)) {
+		setPdt_x();
+	}
+	if ((xAcc == 0 && acceleratingRight) || (xAcc == 5 && !acceleratingRight)) {
+		setDrag(accelerate < 0);
 		xEventStartVelocity = xVelocity;
-		setPdt_x();
-		xAcc = 5;
-	}
-	else if (xAcc == 5 && !accelerate) {
-		setAcceleratingRight(false);
-		setPdt_x();
-		xAcc = 0;
 		
+		setxAcc(5 * accelerate);
 	}
-
-	
 
 }
 
@@ -115,6 +106,12 @@ bool Bird::getAcceleratingRight() {
 void Bird::setAcceleratingRight(bool value) {
 	acceleratingRight = value;
 }
+bool Bird::getDrag() {
+	return drag;
+}
+void Bird::setDrag(bool value) {
+	drag = value;
+}
 
 double Bird::getPdt() {
 	return pdt;
@@ -144,12 +141,7 @@ double Bird::getFdt_x() {
 	return fdt_x;
 }
 void Bird::setFdt_x() {
-	if ((getDt() - getPdt_x()) / 1000 > 1) {
-		fdt_x = 1;
-	}
-	else {
 		fdt_x = (getDt() - getPdt_x()) / 1000;
-	}
 }
 	
 

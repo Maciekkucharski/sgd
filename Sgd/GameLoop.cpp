@@ -6,6 +6,7 @@ GameLoop::GameLoop() {
     renderer = NULL;
     state = false;
     b.setSrc(0, 0, 85, 120);
+    b.setDest(40, 200, 85, 120);
     brT.setDest(0, 0, 2, 1920);
     brL.setDest(0, 0, 1080, 2);
     brR.setDest(1918, 0, 1080, 2);
@@ -69,8 +70,9 @@ void GameLoop::Event() {
             }  
         }
         else if (event.key.keysym.sym == SDLK_d) {
-            b.changeAccForwards(true);
+            b.changeAccForwards(1);
             b.Move();
+            
         }
         else if (event.key.keysym.sym == SDLK_a) {
             //
@@ -81,7 +83,7 @@ void GameLoop::Event() {
     }
     else if ((event.type == SDL_KEYUP)) {
         if (event.key.keysym.sym == SDLK_d) {
-            b.changeAccForwards(false);
+            b.changeAccForwards(-1);
             b.Move();
         }
         else if (event.key.keysym.sym == SDLK_a) {
