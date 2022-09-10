@@ -50,8 +50,8 @@ void GameLoop::Initialize() {
 
 void GameLoop::Update(int rand){
     b.Update();
-    Pipe_Below.Update(renderer, rand);
-    Pipe_Above.Update(renderer, rand);
+    Pipe_Below.Update(renderer, rand + 650);
+    Pipe_Above.Update(renderer, rand - 500);
     
 }
 
@@ -95,9 +95,6 @@ void GameLoop::CollisionDetection() {
     }
     
 }
-
-
-
 
 void GameLoop::Renderer() {
     SDL_RenderClear(renderer);
