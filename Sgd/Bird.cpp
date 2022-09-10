@@ -46,13 +46,13 @@ void Bird::Move() {
 //	}
 	
 	
-	if (abs(xVelocity)< 0.1 && getDrag()) {
+	if (abs(xVelocity)< 0.05 && getDrag()) {
 		setxAcc(0);
 		setxVelocity(0);
 		xEventStartVelocity = 0;
 		setDrag(false);
 		setAcceleratingRight(false);
-		//setPdt_x();
+		setPdt_x();
 	}
 	
 	setDest(x, getDest().y, 42, 60);
@@ -67,8 +67,10 @@ void Bird::changeAccForwards(int accelerate) {
 	setAcceleratingRight(accelerate > 0);
 	if ((xAcc == 0 && acceleratingRight)) {
 		setPdt_x();
+		setMovingRight(true);
 	}
 	if ((xAcc == 0 && acceleratingRight) || (xAcc == 5 && !acceleratingRight)) {
+		setPdt_x();
 		setDrag(accelerate < 0);
 		xEventStartVelocity = xVelocity;
 		
@@ -105,6 +107,24 @@ bool Bird::getAcceleratingRight() {
 }
 void Bird::setAcceleratingRight(bool value) {
 	acceleratingRight = value;
+}
+bool Bird::getAcceleratingLeft() {
+	return acceleratingLeft;
+}
+void Bird::setAcceleratingLeft(bool value) {
+	acceleratingLeft = value;
+}
+bool Bird::getMovingright() {
+	return movingRight;
+}
+void Bird::setMovingRight(bool value) {
+	movingRight = value;
+}
+bool Bird::getMovingLeft() {
+	return movingLeft;
+}
+void Bird::setMovingLeft(bool value) {
+	movingLeft = value;
 }
 bool Bird::getDrag() {
 	return drag;

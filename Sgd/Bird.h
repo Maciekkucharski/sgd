@@ -22,6 +22,12 @@ public:
 	double getxAcc();
 	void setAcceleratingRight(bool value);
 	bool getAcceleratingRight();
+	void setAcceleratingLeft(bool value);
+	bool getAcceleratingLeft();
+	void setMovingLeft(bool value);
+	bool getMovingLeft();
+	void setMovingRight(bool value);
+	bool getMovingright();
 	void setDrag(bool value);
 	bool getDrag();
 	void setFdt_x();
@@ -38,6 +44,8 @@ private:
 	bool jumping = false;
 	bool acceleratingRight = false;
 	bool acceleratingLeft = false;
+	bool movingRight = false;
+	bool movingLeft = false;
 	double pdt_x, fdt_x = 0;
 	bool drag = false;
 };
