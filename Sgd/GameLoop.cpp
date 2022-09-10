@@ -48,10 +48,11 @@ void GameLoop::Initialize() {
 }
 
 
-void GameLoop::Update(){
+void GameLoop::Update(int rand){
     b.Update();
-    Pipe_Above.Update(renderer);
-    Pipe_Below.Update(renderer);
+    Pipe_Below.Update(renderer, rand);
+    Pipe_Above.Update(renderer, rand);
+    
 }
 
 void GameLoop::Event() {
@@ -59,43 +60,29 @@ void GameLoop::Event() {
     if (event.type == SDL_QUIT) {
         state = false;
     }
+
+
     if (event.type == SDL_KEYDOWN) {
         if (event.key.keysym.sym == SDLK_w) {
-            if (!b.getJumping()) {     
-                b.Jump(); 
-                b.Move();
-            }
-            else {
-                b.Move();
-            }  
+            b.accUpward();
         }
         else if (event.key.keysym.sym == SDLK_d) {
-            b.changeAccForwards(1);
-            b.Move();
-            
+            b.accForward();      
         }
         else if (event.key.keysym.sym == SDLK_a) {
-            //
-        }
-        else {
-            b.Move();
+            b.accBackward();
         }
     }
     else if ((event.type == SDL_KEYUP)) {
         if (event.key.keysym.sym == SDLK_d) {
-            b.changeAccForwards(-1);
-            b.Move();
+            b.stopAccForward();
         }
         else if (event.key.keysym.sym == SDLK_a) {
+            b.stopAccBackward();
+        }
+    }
 
-        }
-        else {
-            b.Move();
-        }
-    }
-    else {
-        b.Move();
-    }
+    b.Frame();
 }
 
 

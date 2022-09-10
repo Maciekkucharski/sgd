@@ -2,16 +2,17 @@
 #include <iostream>
 #include <Windows.h>
 #include "Gameloop.h"
-
+#include <time.h> 
 GameLoop* g = new GameLoop();  //pointer to gameloop class to access function
 
 int main(int argc, char* argv[]) {
-
+    srand(time(NULL));
     double first;
     double last = 0;
     g->Initialize();
     while (g->getState()) {
-        g->Update();
+        int random = rand() % 500-250;
+        g->Update(random);
         g->Event();
         g->Renderer();
         g->CollisionDetection();
@@ -19,7 +20,6 @@ int main(int argc, char* argv[]) {
         if (first - last < 6.9) {
             SDL_Delay(6.9 - (first - last));
         }
-        
         last = first;
     }
     g->Renderer();

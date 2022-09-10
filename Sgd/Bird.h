@@ -7,6 +7,13 @@ public:
 	void changeAccForwards(int accelerate);
 	bool getJumping();
 	void Move();
+	void Frame();
+	void accForward();
+	void accUpward();
+	void stopAccForward();
+	void stopAccUpward();
+	void accBackward();
+	void stopAccBackward();
 	double getPdt();
 	void setPdt();
 	double getDt();
@@ -35,10 +42,10 @@ public:
 
 private:
 	double pdt, dt, fdt = 0;
-	double gravity = 40;
-	double xAcc = 0;
+	double gravity = -500;
+	double a_x = 0;
 	double jumpSpeed = 20;
-	double xVelocity = 0;
+	double v_x = 0;
 	double xEventStartVelocity = 0;
 	double jumpTimer;
 	bool jumping = false;
@@ -48,4 +55,9 @@ private:
 	bool movingLeft = false;
 	double pdt_x, fdt_x = 0;
 	bool drag = false;
+	double s_x = 0;
+	double a_y = 0;
+	double s_y = 0;
+	double v_y = 0;
+
 };

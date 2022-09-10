@@ -32,7 +32,7 @@ public:
 
     void Initialize();
 
-    void Update();
+    void Update(int rand);
 
     void Event();
 

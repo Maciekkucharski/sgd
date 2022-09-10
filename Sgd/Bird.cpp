@@ -6,73 +6,55 @@ void Bird::Render(SDL_Renderer* ren) {
 	SDL_RenderCopy(ren, getTexture(), &getSrc(), &getDest());
 }
 
-void Bird::Jump() {
-	if (dt - getPdt() > 50) {
-		setPdt();
-		jumping = true;
-	}
-	else {
-		Move();
-	}
+
+void Bird::accUpward() {
+	v_y = 500;
 }
 
-void Bird::Move() {
-	
-	double x;
-	double y;
-	std::cout << "\nEventStartVelocity->" << xEventStartVelocity <<  "	vel->" << xVelocity<< "		fdtx->" << getFdt_x() << "		pdtx->" << getPdt_x() << "	xacc->" << xAcc << "	drag->" << drag;
-	setFdt();
-	if (getJumping()){
-		double tmp_dest = getDest().y;
-		y = getDest().y - jumpSpeed * getFdt() + (getFdt() * getFdt() * gravity) ;
-		
-		setDest(getDest().x, y, 42, 60);
-		if (tmp_dest < y) {
-			setPdt();
-			jumping = false;
-		}
-	}
-	else
-	{
-		y = getDest().y + gravity * (getFdt() * getFdt());
-		
-	}
-	setDest(getDest().x, 40, 42, 60);//change 40 to y
-
-	setFdt_x();
-	//if (getAcceleratingRight()) {
-	x = getDest().x + xEventStartVelocity * getFdt_x() + xAcc * getFdt_x() * getFdt_x();
-	xVelocity = xEventStartVelocity + xAcc * getFdt_x();
-//	}
-	
-	
-	if (abs(xVelocity)< 0.05 && getDrag()) {
-		setxAcc(0);
-		setxVelocity(0);
-		xEventStartVelocity = 0;
-		setDrag(false);
-		setAcceleratingRight(false);
-		setPdt_x();
-	}
-	
-	setDest(x, getDest().y, 42, 60);
+void Bird::accForward() {
+	a_x = 150;
 }
 
+void Bird::stopAccForward() {
+	a_x = -300;
+}
 
+void Bird::accBackward() {
+	a_x = -150;
+}
 
+void Bird::stopAccBackward() {
+	a_x = 300;
+}
+
+void Bird::Frame() {
+	float t = 0.0069;
+
+	v_x += a_x * t;
+	if ((v_x >= 0 && (v_x + a_x * t) <= 0)||(v_x <= 0 && (v_x + a_x * t) >= 0)) {
 	
+		a_x = 0;
+		v_x = 0;
+	}
+	s_x += v_x * t;
 
+	v_y += (a_y + gravity) * t;
+	s_y += v_y * t;
+
+	setDest(s_x+40, -s_y+10, 42, 60);
+
+}
 
 void Bird::changeAccForwards(int accelerate) {
 	setAcceleratingRight(accelerate > 0);
-	if ((xAcc == 0 && acceleratingRight)) {
+	if ((a_x == 0 && acceleratingRight)) {
 		setPdt_x();
 		setMovingRight(true);
 	}
-	if ((xAcc == 0 && acceleratingRight) || (xAcc == 5 && !acceleratingRight)) {
+	if ((a_x == 0 && acceleratingRight) || (a_x == 5 && !acceleratingRight)) {
 		setPdt_x();
 		setDrag(accelerate < 0);
-		xEventStartVelocity = xVelocity;
+		xEventStartVelocity = v_x;
 		
 		setxAcc(5 * accelerate);
 	}
@@ -91,16 +73,16 @@ bool Bird::getJumping() {
 }
 
 double Bird::getxVelocity() {
-	return xVelocity;
+	return v_x;
 }
 void Bird::setxVelocity(double value) {
-	xVelocity = value;
+	v_x = value;
 }
 double Bird::getxAcc() {
-	return xAcc;
+	return a_x;
 }
 void Bird::setxAcc(double value) {
-	xAcc = value;
+	a_x = value;
 }
 bool Bird::getAcceleratingRight() {
 	return acceleratingRight;
